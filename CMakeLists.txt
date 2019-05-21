@@ -342,7 +342,7 @@ if(UNITTEST)
      add_test(NAME test_horus_binary_mode_q
              COMMAND sh -c "sox ${CMAKE_CURRENT_SOURCE_DIR}/wav/horus_binary_ebno_4.5db.wav -c 2 -r 48000 -t raw - | $<TARGET_FILE:horus_demod> -q -m binary - -"
              )
-             set_tests_properties(test_horus_binary PROPERTIES
+             set_tests_properties(test_horus_binary_mode_q PROPERTIES
              PASS_REGULAR_EXPRESSION "1C9A9545")
 
     # tests ldpc_enc/ldpc_noise/ldpc_dec
