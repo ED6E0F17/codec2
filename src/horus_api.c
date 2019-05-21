@@ -362,7 +362,7 @@ int horus_rx(struct horus *hstates, char ascii_out[], short demod_in[]) {
         demod_in_comp[i].real = demod_in[i];
         demod_in_comp[i].imag = 0;
     }
-    result = horus_rx_process(hstates, ascii_out, demod_in_comp);
+    result = horus_demod_comp(hstates, ascii_out, demod_in_comp);
     free(demod_in_comp);
 
     return result;
@@ -378,13 +378,13 @@ int horus_rx_comp(struct horus *hstates, char ascii_out[], short demod_in_iq[]) 
         demod_in_comp[i].real = demod_in_iq[i * 2];     // cast shorts to floats
         demod_in_comp[i].imag = demod_in_iq[i * 2 + 1]; //  range not normalised
     }
-    result = horus_rx_process(hstates, ascii_out, demod_in_comp);
+    result = horus_demod_comp(hstates, ascii_out, demod_in_comp);
     free(demod_in_comp);
 
     return result;
 }
 
-int horus_rx_process(struct horus *hstates, char ascii_out[], COMP demod_in_comp[]) {
+int horus_demod_comp(struct horus *hstates, char ascii_out[], COMP demod_in_comp[]) {
     int i, j, uw_loc, packet_detected;
     
     packet_detected = 0;
