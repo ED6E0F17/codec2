@@ -589,7 +589,7 @@ void sd_to_llr(float llr[], double sd[], int n) {
     estvar = (n * sumsq - sum * sum) / (n * (n - 1));
     //fprintf(stderr, "mean: %f var: %f\n", mean, estvar);
 
-    estEsN0 = 1.0/(2.0L * estvar + 1E-3);
+    estEsN0 = 1.0 / (2.0L * estvar + 1E-3) / mean;
     for(i=0; i<n; i++)
         llr[i] = 4.0L * estEsN0 * sd[i];
 }
