@@ -1,5 +1,5 @@
 /* 
-  FILE...: ldpc_enc.c
+  FILE...: ldpc_noise.c
   AUTHOR.: Don Reid
   CREATED: Aug 2018
 
@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 
     if (argc < 3) {
         fprintf(stderr, "\n");
-        fprintf(stderr, "usage: %s InputFile OutputFile NodB\n", argv[0]);
+        fprintf(stderr, "usage: %s InputFile OutputFile NodB [Scaling]\n", argv[0]);
         fprintf(stderr, "\n");
         exit(1);
     }
@@ -42,6 +42,9 @@ int main(int argc, char *argv[]) {
     double NodB = atof(argv[3]);
     double No = pow(10.0, NodB/10.0);
     double sum_xx = 0; double sum_x = 0.0; long n = 0;
+    double scaling = 1.0;
+
+    if (argc >3) scaling = atof(argv[4]);
     
     fprintf(stderr, "Uncoded PSK Eb/No simulation:\n");
     fprintf(stderr, "No    = % 4.2f dB (%4.2f linear)\n", NodB, No);
@@ -56,7 +59,7 @@ int main(int argc, char *argv[]) {
         double z = sqrt(-2 * log(x)) * cos(2 * M_PI * y);
 
 	double noise = sqrt(No/2) * z;
-	dataout = datain + noise;
+	dataout = scaling * (datain + noise);
 
         fwrite(&dataout, sizeof(double), 1, fout);        
 
